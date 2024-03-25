@@ -13,9 +13,15 @@ python do_display_banner() {
 
 addtask display_banner before do_build
 
+PSPLASH_IMAGE_NAME = "my-custom-image.png"
+MACHINE_PSPLASH_PKG ?= "default"
+
 # point to the folder with image information
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 # change the psplash image
 # ":forcevariable" option overwrites any machine specific override
-SPLASH_IMAGES:forcevariable = "file://my-custom-image.png;outsuffix=default"
+SPLASH_IMAGES:forcevariable = " \
+    file://${PSPLASH_IMAGE_NAME} \
+    file://${PSPLASH_IMAGE_NAME};outsuffix=${MACHINE_PSPLASH_PKG} \
+"
